@@ -26,6 +26,7 @@ def create_score_board(user_name: str) -> dict:
     :param user_name: a string that represents user name
     :return: a dictionary that represent score board with user name
     """
+    pass
 
 
 def menu_before_roll_dice() -> str or False:
@@ -52,7 +53,6 @@ def roll_dice(scores: None) -> list:
     """
     Roll dice
 
-    :
     :precondition: the argument must be an integer
     :post-condition: generate 5 integers between 1 and 6 that represent dice numbers as a list
     :return: a list that represent dice number
