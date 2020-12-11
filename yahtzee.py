@@ -48,7 +48,7 @@ def menu_before_roll_dice() -> str or False:
                             'Q: Quit\n')
         if user_choice == '1':
             return 1
-        elif user_choice == ('q' or 'Q'):
+        elif user_choice == 'q' or user_choice == 'Q':
             quit('Successfully quit! Bye!')
         else:
             print('You wrote wrong input! Write 1 or Q!\n')
@@ -70,7 +70,7 @@ def menu_after_roll_dice() -> str or False:
                             'Q: Quit\n')
         if user_choice in choice_list:
             return int(user_choice)
-        elif user_choice == 'Q':
+        elif user_choice == 'Q' or user_choice == 'q':
             quit('Successfully quit! Bye!')
         else:
             print('You wrote wrong input! Write 1, 2, 3 or Q!\n')
@@ -121,26 +121,48 @@ def select_dice(current_dice: list) -> list:
                     current_dice[int(dice_choice) - 1], '*' + current_dice[int(dice_choice) - 1])
             else:
                 current_dice[int(dice_choice) - 1] = current_dice[int(dice_choice) - 1].replace('*', '')
-        elif dice_choice == ('b' or 'B'):
+        elif dice_choice == 'b' or dice_choice == 'B':
             return current_dice
-        elif dice_choice == ('q' or 'Q'):
+        elif dice_choice == 'q' or dice_choice == 'Q':
             quit('Successfully quit! Bye!')
         else:
             print('\n***Please write right numbers or letters!***\n')
 
-select_dice(['3', '3', '3', '3', '3'])
 
-
-
-def choose_score_location(scores: dict) -> dict:
+def choose_score_location(scores: dict, dice: list) -> dict:
     """
     Choose box on score board to place score
 
     :param scores: a dictionary that represents user scores
+    :param dice: a list that contains strings of numbers that represent a die that user gets
     :post-condition: get user input to choose location, and add the score in the location
     :return: an integer that represent location
     """
-    pass
+    score_list = ['1', '2', '3', '4', '5', '6', 'Three of a Kind', 'Four of a Kind', 'Full House', 'Small Straight',
+                  'Large Straight', 'Yahtzee', 'Chance']
+    while True:
+        location = input('Please write a number that you want to get a score.\n'
+                         '1: 1                   8: Four of a Kind\n2: 2                   9: Full House\n'
+                         '3: 3                   10: Small Straight\n4: 4                   11: Large Straight\n'
+                         '5: 5                   12: Yahtzee\n6: 6                   13: Chance\n'
+                         '7: Three of a Kind     Q: Quit\n')
+        if location == 'q' or location == 'Q':
+            quit('Successfully quit! Bye!')
+        elif location == '12' and sorted(dice[0]) == sorted(dice[4]) and scores['Yahtzee'] != 0:
+            return int(location)
+        elif location in str(list(range(1, 14))) and \
+                scores[score_list[int(location) - 1]] is None:
+            return int(location)
+        elif scores[score_list[int(location) - 1]] is not None:
+            print('\nYou chose the place you have already chosen! Try to choose another place!\n')
+        else:
+            print('\nYou put wrong type of number or letter!\n')
+
+
+choose_score_location({'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,
+            '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
+            'Full House': None, 'Small Straight': None, 'Large Straight': None,
+            'Yahtzee': None, 'Chance': None}, ['3', '3', '3', '3', '3'])
 
 
 def score_type(dice: list, scores: dict, location) -> dict:
