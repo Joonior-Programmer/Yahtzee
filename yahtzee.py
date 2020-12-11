@@ -7,6 +7,9 @@ Yahtzee Game
 """
 
 
+import random
+
+
 def create_score_board(user_name: str) -> dict:
     """
     >>> name = 'Joonnn'
@@ -72,18 +75,29 @@ def menu_after_roll_dice() -> str or False:
         else:
             print('You wrote wrong input! Write 1, 2, 3 or Q!\n')
 
-print(menu_after_roll_dice())
 
-
-def roll_dice(scores: None) -> list:
+def roll_dice(scores=None) -> list:
     """
     Roll dice
+
+    >>> dice = ['*3', '*3', '*3', '*3', '*3']
+    >>> roll_dice(dice)
+    ['3', '3', '3', '3', '3']
+
+    >>> dice = ['*1', '*2', '*3', '*4', '*5']
+    >>> roll_dice(dice)
+    ['1', '2', '3', '4', '5']
 
     :precondition: the argument must be an integer
     :post-condition: generate 5 integers between 1 and 6 that represent dice numbers as a list
     :return: a list that represent dice number
     """
-    pass
+    if scores:
+        return [str(random.randint(1, 6)) if die.find('*') == -1 else die.replace('*', '') for die in scores]
+    else:
+        return random.choices(range(1, 6), k=5)
+
+print(roll_dice(['*1', '*2', '*3', '*4', '*5']))
 
 
 def select_dice(current_dice: list) -> list:
