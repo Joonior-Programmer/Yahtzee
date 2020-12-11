@@ -49,7 +49,7 @@ def menu_before_roll_dice() -> str or False:
         if user_choice == '1':
             return 1
         elif user_choice == ('q' or 'Q'):
-            return False
+            quit('Successfully quit! Bye!')
         else:
             print('You wrote wrong input! Write 1 or Q!\n')
 
@@ -71,7 +71,7 @@ def menu_after_roll_dice() -> str or False:
         if user_choice in choice_list:
             return int(user_choice)
         elif user_choice == 'Q':
-            return False
+            quit('Successfully quit! Bye!')
         else:
             print('You wrote wrong input! Write 1, 2, 3 or Q!\n')
 
@@ -93,11 +93,13 @@ def roll_dice(scores=None) -> list:
     :return: a list that represent dice number
     """
     if scores:
-        return [str(random.randint(1, 6)) if die.find('*') == -1 else die.replace('*', '') for die in scores]
+        new_dice = [str(random.randint(1, 6)) if die.find('*') == -1 else die.replace('*', '') for die in scores]
+        print(f'Your Dice : {new_dice[0]} {new_dice[1]} {new_dice[2]} {new_dice[3]} {new_dice[4]}')
+        return new_dice
     else:
-        return random.choices(range(1, 6), k=5)
-
-print(roll_dice(['*1', '*2', '*3', '*4', '*5']))
+        new_dice = random.choices(range(1, 6), k=5)
+        print(f'Your Dice : {new_dice[0]} {new_dice[1]} {new_dice[2]} {new_dice[3]} {new_dice[4]}')
+        return new_dice
 
 
 def select_dice(current_dice: list) -> list:
@@ -109,7 +111,25 @@ def select_dice(current_dice: list) -> list:
     :post-condition: get user input for dice that user want to save, and add * if user choose to save the dice
     :return: a list that represent if dice saved
     """
-    pass
+    while True:
+        dice_choice = input(f'Which die do you want to choose? (* represents saved)\n'
+                            f'1: {current_dice[0]}\n2: {current_dice[1]}\n3: {current_dice[2]}\n'
+                            f'4: {current_dice[3]}\n5: {current_dice[4]}\nB: Back to Menu\nQ: Quit Game\n')
+        if dice_choice in str(list(range(1, 6))):
+            if current_dice[int(dice_choice) - 1].find('*') == -1:
+                current_dice[int(dice_choice) - 1] = current_dice[int(dice_choice) - 1].replace(
+                    current_dice[int(dice_choice) - 1], '*' + current_dice[int(dice_choice) - 1])
+            else:
+                current_dice[int(dice_choice) - 1] = current_dice[int(dice_choice) - 1].replace('*', '')
+        elif dice_choice == ('b' or 'B'):
+            return current_dice
+        elif dice_choice == ('q' or 'Q'):
+            quit('Successfully quit! Bye!')
+        else:
+            print('\n***Please write right numbers or letters!***\n')
+
+select_dice(['3', '3', '3', '3', '3'])
+
 
 
 def choose_score_location(scores: dict) -> dict:
