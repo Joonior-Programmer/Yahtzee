@@ -11,15 +11,15 @@ def create_score_board(user_name: str) -> dict:
     """
     >>> name = 'Joon'
     >>> create_score_board(name)
-    {'Name': 'Joon', '1\'s': None, '2\'s': None, '3\'s': None, '4\'s': None,\
-     '5\'s': None, '6\'s': None, 'Three of a Kind': None, 'Four of a Kind': None,\
+    {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,\
+     '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
      'Full House': None, 'Small Straight': None, 'Large Straight': None,\
      'Yahtzee': None, 'Chance': None}
 
     >>> name = 'Chris'
     >>> create_score_board(name)
-    {'Name': 'Chris', '1\'s': None, '2\'s': None, '3\'s': None, '4\'s': None,\
-     '5\'s': None, '6\'s': None, 'Three of a Kind': None, 'Four of a Kind': None,\
+    {'Name': 'Chris', '1': None, '2': None, '3': None, '4': None,\
+     '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
      'Full House': None, 'Small Straight': None, 'Large Straight': None,\
      'Yahtzee': None, 'Chance': None}
 
@@ -93,7 +93,7 @@ def score_type(dice: list, scores: dict, location) -> dict:
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,\
                  'Yahtzee': None, 'Chance': None}
     >>> score_location = 3
-    >>> SCORE_TYPES(die, score, score_location)
+    >>> score_type(die, score, score_location)
     {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
     '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
     'Full House': None, 'Small Straight': None, 'Large Straight': None,\
