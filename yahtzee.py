@@ -31,7 +31,6 @@ def create_score_board(user_name: str) -> dict:
      'Full House': None, 'Small Straight': None, 'Large Straight': None,
      'Yahtzee': None, 'Chance': None}
 
-print(create_score_board('Joonn'))
 
 def menu_before_roll_dice() -> str or False:
     """
@@ -40,7 +39,14 @@ def menu_before_roll_dice() -> str or False:
     :post-condition: get a user input, and return it
     :return: a number that represent what user wants to do
     """
-    pass
+    while True:
+        user_choice = input('Please write the number that you want to do\n'
+                            '1: Roll dice\n'
+                            'Q: Quit\n')
+        if user_choice == '1':
+            return 1
+        elif user_choice == 'q' or 'Q':
+            return False
 
 
 def menu_after_roll_dice() -> str or False:
