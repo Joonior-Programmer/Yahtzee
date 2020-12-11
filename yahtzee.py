@@ -26,8 +26,12 @@ def create_score_board(user_name: str) -> dict:
     :param user_name: a string that represents user name
     :return: a dictionary that represent score board with user name
     """
-    pass
+    return {'Name': user_name, '1': None, '2': None, '3': None, '4': None,
+     '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
+     'Full House': None, 'Small Straight': None, 'Large Straight': None,
+     'Yahtzee': None, 'Chance': None}
 
+print(create_score_board('Joonn'))
 
 def menu_before_roll_dice() -> str or False:
     """
