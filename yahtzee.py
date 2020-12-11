@@ -6,7 +6,6 @@ Assignment 3
 Yahtzee Game
 """
 
-
 import random
 
 
@@ -163,24 +162,25 @@ def score_type(dice: list, scores: dict, location) -> dict:
     """
     Define constant scores that user can obtain
 
-    >>> die = ['3', '3', '4', '1', '2']
+    >>> pick = ['3', '3', '4', '1', '2']
     >>> score = {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,\
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,\
                  'Yahtzee': None, 'Chance': None}
     >>> score_location = 3
-    >>> score_type(die, score, score_location)
+    >>> score_type(pick, score, score_location)
     {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
     '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
     'Full House': None, 'Small Straight': None, 'Large Straight': None,\
     'Yahtzee': None, 'Chance': None}
 
-    >>> die = ['3', '4', '4', '1', '2']
+    >>> pick = ['3', '4', '4', '1', '2']
     >>> score = {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,\
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,\
                  'Yahtzee': None, 'Chance': None}
     >>> score_location = 13
+    >>> score_type(pick, score, score_location)
     {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,\
     '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
     'Full House': None, 'Small Straight': None, 'Large Straight': None,\
@@ -193,7 +193,155 @@ def score_type(dice: list, scores: dict, location) -> dict:
     :post-condition: define score that user gets, and add to score board
     :return: a dictionary that the score added in right place
     """
-    pass
+    score_list = ['1', '2', '3', '4', '5', '6', 'Three of a Kind', 'Four of a Kind', 'Full House', 'Small Straight',
+                  'Large Straight', 'Yahtzee', 'Chance']
+    scores[score_list[location - 1]] = 0
+    if location in range(1, 7):
+        for die in dice:
+            if die == score_list[location - 1]:
+                scores[score_list[location - 1]] += int(die)
+    elif location in range(7, 10) or location == 13:
+        return validate_lower_score_for_kinds_full_house_chance(dice, scores, location)
+    elif location in range(10, 12):
+        validate_lower_score_straights(dice, scores, location)
+    elif location == 12:
+        return validate_yahtzee(dice, scores, location)
+    return scores
+
+
+def validate_lower_score_for_kinds_full_house_chance(dice: list, scores: dict, location: int):
+    """
+    validate if user can get points for three of a kinds, four of a kinds, full house, and chance
+
+    >>> pick = ['3', '3', '3', '2', '2']
+    >>> score = {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
+    'Full House': None, 'Small Straight': None, 'Large Straight': None,\
+    'Yahtzee': None, 'Chance': None}
+    >>> score_location = 9
+    >>> validate_lower_score_for_kinds_full_house_chance(pick, score, score_location)
+    {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
+    'Full House': 25, 'Small Straight': None, 'Large Straight': None,
+    'Yahtzee': None, 'Chance': None}
+
+    >>> pick = ['3', '3', '3', '2', '2']
+    >>> score = {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
+    'Full House': None, 'Small Straight': None, 'Large Straight': None,\
+    'Yahtzee': None, 'Chance': None}
+    >>> score_location = 7
+    >>> validate_lower_score_for_kinds_full_house_chance(pick, score, score_location)
+    {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,
+    '5': None, '6': None, 'Three of a Kind': 13, 'Four of a Kind': None,
+    'Full House': None, 'Small Straight': None, 'Large Straight': None,
+    'Yahtzee': None, 'Chance': None}
+
+    :param dice: a list that represents dice numbers
+    :param scores: a dictionary that represents user scores
+    :param location: an integer that represent location
+    :precondition: arguments must be in right format
+    :post-condition: define score that user gets, and add to score board
+    :return: a dictionary that the score added in right place
+    """
+    score_list = ['1', '2', '3', '4', '5', '6', 'Three of a Kind', 'Four of a Kind', 'Full House', 'Small Straight',
+                  'Large Straight', 'Yahtzee', 'Chance']
+    scores[score_list[location - 1]] = 0
+    sorted_dice = sorted(dice)
+    if location == 7 and (sorted_dice[0] == sorted_dice[2] or sorted_dice[1] == sorted_dice[3] or sorted_dice[2] ==
+                          sorted_dice[4]):
+        scores[score_list[location - 1]] += sum(dice)
+    elif location == 8 and (sorted_dice[0] == sorted_dice[3] or sorted_dice[1] == sorted_dice[4]):
+        scores[score_list[location - 1]] += sum(dice)
+    elif location == 9 and (
+            (sorted_dice[0] == sorted_dice[2] and sorted_dice[3] == sorted_dice[4]) or (sorted_dice[0] ==
+                                                                                        sorted_dice[1] and sorted_dice[
+                                                                                            2] == sorted_dice[4])):
+        scores[score_list[location - 1]] += 25
+    elif location == 13:
+        scores[score_list[location - 1]] += sum(dice)
+    return scores
+
+
+def validate_lower_score_straights(dice: list, scores: dict, location: int) -> dict:
+    """
+    validate if user can get points for straights
+
+    >>> pick = ['1', '2', '3', '4', '5']
+    >>> score = {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
+    'Full House': None, 'Small Straight': None, 'Large Straight': None,\
+    'Yahtzee': None, 'Chance': None}
+    >>> score_location = 10
+    >>> validate_lower_score_for_kinds_full_house_chance(pick, score, score_location)
+    {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
+    'Full House': None, 'Small Straight': 30, 'Large Straight': None,
+    'Yahtzee': None, 'Chance': None}
+
+    >>> pick = ['1', '2', '4', '4', '4']
+    >>> score = {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
+    'Full House': None, 'Small Straight': None, 'Large Straight': None,\
+    'Yahtzee': None, 'Chance': None}
+    >>> score_location = 10
+    >>> validate_lower_score_for_kinds_full_house_chance(pick, score, score_location)
+    {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
+    'Full House': None, 'Small Straight': 0, 'Large Straight': None,
+    'Yahtzee': None, 'Chance': None}
+
+    :param dice: a list that represents dice numbers
+    :param scores: a dictionary that represents user scores
+    :param location: an integer that represent location
+    :precondition: arguments must be in right format
+    :post-condition: define score that user gets, and add to score board
+    :return: a dictionary that the score added in right place
+    """
+    score_list = ['1', '2', '3', '4', '5', '6', 'Three of a Kind', 'Four of a Kind', 'Full House', 'Small Straight',
+                  'Large Straight', 'Yahtzee', 'Chance']
+
+    scores[score_list[location - 1]] = 0
+    sorted_dice = sorted(dice)
+    if location == 10 and (
+            (int(sorted_dice[1]) == int(sorted_dice[0]) + 1 and int(sorted_dice[2]) == int(sorted_dice[1]) + 1 and \
+             int(sorted_dice[3]) == int(sorted_dice[2]) + 1) or (int(sorted_dice[2]) == int(sorted_dice[1]) + 1 \
+                                                                 and int(sorted_dice[3]) == int(
+                sorted_dice[2]) + 1 and int(sorted_dice[4]) == int(sorted_dice[3]) + 1)):
+        scores[score_list[location - 1]] += 30
+    elif location == 11 and (
+    (int(sorted_dice[1]) == int(sorted_dice[0]) + 1 and int(sorted_dice[2]) == int(sorted_dice[1]) + 1 and \
+     int(sorted_dice[3]) == int(sorted_dice[2]) + 1 and int(sorted_dice[4]) == int(sorted_dice[3]) + 1)):
+        scores[score_list[location - 1]] += 40
+    return scores
+
+print(validate_lower_score_straights(['3', '2', '3', '4', '5'], {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
+    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
+    'Full House': None, 'Small Straight': None, 'Large Straight': None,\
+    'Yahtzee': None, 'Chance': None}, 10))
+
+def validate_yahtzee(dice: list, scores: dict, location: int):
+    """
+    validate if user can get points for yahtzee
+
+    :param dice: a list that represents dice numbers
+    :param scores: a dictionary that represents user scores
+    :param location: an integer that represent location
+    :precondition: arguments must be in right format
+    :post-condition: define score that user gets, and add to score board
+    :return: a dictionary that the score added in right place
+    """
+    score_list = ['1', '2', '3', '4', '5', '6', 'Three of a Kind', 'Four of a Kind', 'Full House', 'Small Straight',
+                  'Large Straight', 'Yahtzee', 'Chance']
+    sorted_dice = sorted(dice)
+    if sorted_dice[0] == sorted_dice[4]:
+        if scores[score_list[location - 1]] is None:
+            scores[score_list[location - 1]] = 50
+        else:
+            scores[score_list[location - 1]] += 100
+    else:
+        scores[score_list[location - 1]] = 0
+    return scores
 
 
 def check_win(player1_scores: dict, player2_scores: dict):
@@ -226,15 +374,6 @@ def check_win(player1_scores: dict, player2_scores: dict):
     elif sum_of_score2 == sum_of_score1:
         print(f'{player1_scores["Name"]}: {sum_of_score1}   {player2_scores["Name"]}: {sum_of_score2}\n'
               f'Same scores! Draw!')
-
-
-check_win({'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,
-           '5': 0, '6': 6, 'Three of a Kind': 3, 'Four of a Kind': 4,
-           'Full House': 2, 'Small Straight': 3, 'Large Straight': 4,
-           'Yahtzee': 3, 'Chance': 3}, {'Name': 'Chris', '1': 6, '2': 12, '3': 18, '4': 24,
-                                        '5': 0, '6': 0, 'Three of a Kind': 5, 'Four of a Kind': 3,
-                                        'Full House': 4, 'Small Straight': 4, 'Large Straight': 3,
-                                        'Yahtzee': 5, 'Chance': 4})
 
 
 def check_bonus(scores: dict) -> dict:
