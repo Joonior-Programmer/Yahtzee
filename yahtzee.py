@@ -27,9 +27,9 @@ def create_score_board(user_name: str) -> dict:
     :return: a dictionary that represent score board with user name
     """
     return {'Name': user_name, '1': None, '2': None, '3': None, '4': None,
-     '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
-     'Full House': None, 'Small Straight': None, 'Large Straight': None,
-     'Yahtzee': None, 'Chance': None}
+            '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
+            'Full House': None, 'Small Straight': None, 'Large Straight': None,
+            'Yahtzee': None, 'Chance': None}
 
 
 def menu_before_roll_dice() -> str or False:
@@ -45,8 +45,10 @@ def menu_before_roll_dice() -> str or False:
                             'Q: Quit\n')
         if user_choice == '1':
             return 1
-        elif user_choice == 'q' or 'Q':
+        elif user_choice == ('q' or 'Q'):
             return False
+        else:
+            print('You wrote wrong input! Write 1 or Q!\n')
 
 
 def menu_after_roll_dice() -> str or False:
@@ -56,7 +58,21 @@ def menu_after_roll_dice() -> str or False:
     :post-condition: get a user input, and return it
     :return: a number that represent what user wants to do
     """
-    pass
+    choice_list = ['1', '2', '3']
+    while True:
+        user_choice = input('Please write the the number that you want to do\n'
+                            '1: Roll dice\n'
+                            '2: Save dice\n'
+                            '3: Choose score\n'
+                            'Q: Quit\n')
+        if user_choice in choice_list:
+            return int(user_choice)
+        elif user_choice == 'Q':
+            return False
+        else:
+            print('You wrote wrong input! Write 1, 2, 3 or Q!\n')
+
+print(menu_after_roll_dice())
 
 
 def roll_dice(scores: None) -> list:
