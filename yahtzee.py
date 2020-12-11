@@ -159,12 +159,6 @@ def choose_score_location(scores: dict, dice: list) -> dict:
             print('\nYou put wrong type of number or letter!\n')
 
 
-choose_score_location({'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,
-            '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
-            'Full House': None, 'Small Straight': None, 'Large Straight': None,
-            'Yahtzee': None, 'Chance': None}, ['3', '3', '3', '3', '3'])
-
-
 def score_type(dice: list, scores: dict, location) -> dict:
     """
     Define constant scores that user can obtain
@@ -219,21 +213,21 @@ def check_bonus(scores: dict) -> dict:
     """
     check if the total upper score is over 63
 
-    >>> score = {'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,\
+    >>> score_board = {'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,\
                  '5': 30, '6': 36, 'Three of a Kind': None, 'Four of a Kind': None,\
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,\
                  'Yahtzee': None, 'Chance': None}
-    >>> check_bonus(score)
+    >>> check_bonus(score_board)
     {'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,\
                  '5': 30, '6': 36, 'Three of a Kind': None, 'Four of a Kind': None,\
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,\
                  'Yahtzee': None, 'Chance': None, 'Bonus': 35}
 
-    >>> score = {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,\
+    >>> score_board = {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,\
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,\
                  'Yahtzee': None, 'Chance': None}
-    >>> check_bonus(score)
+    >>> check_bonus(score_board)
     {'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,\
                  '5': 30, '6': 36, 'Three of a Kind': None, 'Four of a Kind': None,\
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,\
@@ -244,7 +238,20 @@ def check_bonus(scores: dict) -> dict:
     :post-condition: check if the user can get bonus point. if so, add 35 point to scores
     :return: a dictionary that added 35 points, if the user can get 35 points
     """
-    pass
+    score_list = ['1', '2', '3', '4', '5', '6']
+    sum_of_upper_score = 0
+    for key, score in scores.items():
+        if key in score_list:
+            sum_of_upper_score += score
+    if sum_of_upper_score >= 63:
+        scores['Bonus'] = 35
+    return scores
+
+
+print(check_bonus({'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,\
+                 '5': 30, '6': 36, 'Three of a Kind': None, 'Four of a Kind': None,\
+                 'Full House': None, 'Small Straight': None, 'Large Straight': None,\
+                 'Yahtzee': None, 'Chance': None}))
 
 
 def main():
