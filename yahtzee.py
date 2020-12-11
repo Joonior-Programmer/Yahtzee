@@ -7,6 +7,7 @@ Yahtzee Game
 """
 
 import random
+import itertools
 
 
 def create_score_board(user_name: str) -> dict:
@@ -248,11 +249,12 @@ def validate_lower_score_for_kinds_full_house_chance(dice: list, scores: dict, l
                   'Large Straight', 'Yahtzee', 'Chance']
     scores[score_list[location - 1]] = 0
     sorted_dice = sorted(dice)
-    if location == 7 and (sorted_dice[0] == sorted_dice[2] or sorted_dice[1] == sorted_dice[3] or sorted_dice[2] ==
-                          sorted_dice[4]):
-        scores[score_list[location - 1]] += sum(dice)
-    elif location == 8 and (sorted_dice[0] == sorted_dice[3] or sorted_dice[1] == sorted_dice[4]):
-        scores[score_list[location - 1]] += sum(dice)
+    deleted_same_dice = sorted(list(set(dice)))
+    if location == 7 and len(deleted_same_dice) < 4:
+        scores[score_list[location - 1]] += sum([int(die) for die in dice])
+    elif location == 8 and (sorted_dice[0] == sorted_dice[2] or sorted_dice[1] == sorted_dice[3] or sorted_dice[2] ==
+                            sorted_dice[4]):
+        scores[score_list[location - 1]] += sum([int(die) for die in dice])
     elif location == 9 and (
             (sorted_dice[0] == sorted_dice[2] and sorted_dice[3] == sorted_dice[4]) or (sorted_dice[0] ==
                                                                                         sorted_dice[1] and sorted_dice[
@@ -300,25 +302,17 @@ def validate_lower_score_straights(dice: list, scores: dict, location: int) -> d
     """
     score_list = ['1', '2', '3', '4', '5', '6', 'Three of a Kind', 'Four of a Kind', 'Full House', 'Small Straight',
                   'Large Straight', 'Yahtzee', 'Chance']
-
+    SMALL_STRAIGHT_CASES = (('1', '2', '3', '4'), ('2', '3', '4', '5'), ('3', '4', '5', '6'), ('1', '2', '3', '4', '6'),
+                            ('1', '2', '3', '4', '5'), ('2', '3', '4', '5', '6'))
+    LARGE_STRAIGHT_CASES = (('1', '2', '3', '4', '5'), ('2', '3', '4', '5', '6'))
     scores[score_list[location - 1]] = 0
-    sorted_dice = sorted(dice)
-    if location == 10 and (
-            (int(sorted_dice[1]) == int(sorted_dice[0]) + 1 and int(sorted_dice[2]) == int(sorted_dice[1]) + 1 and \
-             int(sorted_dice[3]) == int(sorted_dice[2]) + 1) or (int(sorted_dice[2]) == int(sorted_dice[1]) + 1 \
-                                                                 and int(sorted_dice[3]) == int(
-                sorted_dice[2]) + 1 and int(sorted_dice[4]) == int(sorted_dice[3]) + 1)):
+    deleted_same_dice = sorted(list(set(dice)))
+    if location == 10 and tuple(deleted_same_dice) in SMALL_STRAIGHT_CASES:
         scores[score_list[location - 1]] += 30
-    elif location == 11 and (
-    (int(sorted_dice[1]) == int(sorted_dice[0]) + 1 and int(sorted_dice[2]) == int(sorted_dice[1]) + 1 and \
-     int(sorted_dice[3]) == int(sorted_dice[2]) + 1 and int(sorted_dice[4]) == int(sorted_dice[3]) + 1)):
+    elif location == 11 and tuple(deleted_same_dice) in LARGE_STRAIGHT_CASES:
         scores[score_list[location - 1]] += 40
     return scores
 
-print(validate_lower_score_straights(['3', '2', '3', '4', '5'], {'Name': 'Joon', '1': None, '2': None, '3': 6, '4': None,\
-    '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
-    'Full House': None, 'Small Straight': None, 'Large Straight': None,\
-    'Yahtzee': None, 'Chance': None}, 10))
 
 def validate_yahtzee(dice: list, scores: dict, location: int):
     """
@@ -333,8 +327,7 @@ def validate_yahtzee(dice: list, scores: dict, location: int):
     """
     score_list = ['1', '2', '3', '4', '5', '6', 'Three of a Kind', 'Four of a Kind', 'Full House', 'Small Straight',
                   'Large Straight', 'Yahtzee', 'Chance']
-    sorted_dice = sorted(dice)
-    if sorted_dice[0] == sorted_dice[4]:
+    if len(set(dice)) == 1:
         if scores[score_list[location - 1]] is None:
             scores[score_list[location - 1]] = 50
         else:
@@ -417,4 +410,6 @@ def check_bonus(scores: dict) -> dict:
 
 def main():
     """Drive the program"""
-    pass
+    player1 = input('Please write first user name!')
+    player2 = input('Please write second user name!')
+    
