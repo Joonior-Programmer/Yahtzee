@@ -196,17 +196,45 @@ def score_type(dice: list, scores: dict, location) -> dict:
     pass
 
 
-def check_win(player1_scores: dict, player2_scores: dict) -> str:
+def check_win(player1_scores: dict, player2_scores: dict):
     """
     define who wins from adding all scores
 
     :param player1_scores: a dictionary that represents player1 scores
     :param player2_scores: a dictionary that represents player2 scores
     :precondition: dictionaries must be fully filled
-    :post-condition: define which player has more score, and return the player
-    :return: a string that represent winner.
+    :post-condition: define which player has more score, and print the result
     """
-    pass
+    sum_of_score1 = 0
+    sum_of_score2 = 0
+    for score in player1_scores.values():
+        if score == player1_scores['Name']:
+            pass
+        else:
+            sum_of_score1 += int(score)
+    for score in player2_scores.values():
+        if score == player2_scores['Name']:
+            pass
+        else:
+            sum_of_score2 += int(score)
+    if sum_of_score1 > sum_of_score2:
+        print(f'{player1_scores["Name"]}: {sum_of_score1}   {player2_scores["Name"]}: {sum_of_score2}\n'
+              f'{player1_scores["Name"]} Win!')
+    elif sum_of_score2 > sum_of_score1:
+        print(f'{player1_scores["Name"]}: {sum_of_score1}   {player2_scores["Name"]}: {sum_of_score2}\n'
+              f'{player2_scores["Name"]} Win!')
+    elif sum_of_score2 == sum_of_score1:
+        print(f'{player1_scores["Name"]}: {sum_of_score1}   {player2_scores["Name"]}: {sum_of_score2}\n'
+              f'Same scores! Draw!')
+
+
+check_win({'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,
+           '5': 0, '6': 6, 'Three of a Kind': 3, 'Four of a Kind': 4,
+           'Full House': 2, 'Small Straight': 3, 'Large Straight': 4,
+           'Yahtzee': 3, 'Chance': 3}, {'Name': 'Chris', '1': 6, '2': 12, '3': 18, '4': 24,
+                                        '5': 0, '6': 0, 'Three of a Kind': 5, 'Four of a Kind': 3,
+                                        'Full House': 4, 'Small Straight': 4, 'Large Straight': 3,
+                                        'Yahtzee': 5, 'Chance': 4})
 
 
 def check_bonus(scores: dict) -> dict:
@@ -246,12 +274,6 @@ def check_bonus(scores: dict) -> dict:
     if sum_of_upper_score >= 63:
         scores['Bonus'] = 35
     return scores
-
-
-print(check_bonus({'Name': 'Joon', '1': 6, '2': 12, '3': 18, '4': 24,\
-                 '5': 30, '6': 36, 'Three of a Kind': None, 'Four of a Kind': None,\
-                 'Full House': None, 'Small Straight': None, 'Large Straight': None,\
-                 'Yahtzee': None, 'Chance': None}))
 
 
 def main():
