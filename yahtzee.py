@@ -9,9 +9,9 @@ Yahtzee Game
 
 def create_score_board(user_name: str) -> dict:
     """
-    >>> name = 'Joon'
+    >>> name = 'Joonn'
     >>> create_score_board(name)
-    {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,\
+    {'Name': 'Joonn', '1': None, '2': None, '3': None, '4': None,\
      '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,\
      'Full House': None, 'Small Straight': None, 'Large Straight': None,\
      'Yahtzee': None, 'Chance': None}
