@@ -11,8 +11,9 @@ class TestChooseScoreLocation(TestCase):
                      '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                      'Full House': None, 'Small Straight': None, 'Large Straight': None,
                      'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 1
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['2'])
@@ -21,8 +22,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 2
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['3'])
@@ -31,8 +33,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 3
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['4'])
@@ -41,8 +44,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 4
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['5'])
@@ -51,8 +55,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 5
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['6'])
@@ -61,8 +66,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 6
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['7'])
@@ -71,8 +77,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 7
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['8'])
@@ -81,8 +88,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 8
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['9'])
@@ -91,8 +99,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 9
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['10'])
@@ -101,8 +110,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 10
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['11'])
@@ -111,8 +121,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 11
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['12'])
@@ -121,8 +132,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 12
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['12'])
@@ -131,8 +143,9 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': 50, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 12
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
 
     @patch('builtins.input', side_effect=['13'])
@@ -141,17 +154,7 @@ class TestChooseScoreLocation(TestCase):
                  '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
+        dice = ['3', '3', '3', '3', '3']
         expected = 13
-        actual = choose_score_location(score)
+        actual = choose_score_location(score, dice)
         self.assertEqual(expected, actual)
-
-    @patch('builtins.input', side_effect=['13'])
-    @patch('sys.stdout', new_callable='io.StringIO')
-    def test_choose_score_location_exist(self, mock_output, mock_input):
-        score = {'Name': 'Joon', '1': None, '2': None, '3': None, '4': None,
-                 '5': None, '6': None, 'Three of a Kind': None, 'Four of a Kind': None,
-                 'Full House': None, 'Small Straight': None, 'Large Straight': None,
-                 'Yahtzee': None, 'Chance': 16}
-        expected = 'You cannot choose the location that you have already chosen!\n'
-        choose_score_location(score)
-        self.assertEqual(expected, mock_output.getValue())

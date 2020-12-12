@@ -17,7 +17,7 @@ class TestCheckWin(TestCase):
                    'Yahtzee': 0, 'Chance': 0}
         expected = 'Scores are same! Draw!'
         check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        self.assertEqual(expected, mock_output.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_check_win_player1_win(self, mock_output):
@@ -31,7 +31,7 @@ class TestCheckWin(TestCase):
                    'Yahtzee': 0, 'Chance': 0}
         expected = 'Player: *** Joon ***, Win!'
         check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        self.assertEqual(expected, mock_output.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_check_win_all_player2_win(self, mock_output):
@@ -45,7 +45,7 @@ class TestCheckWin(TestCase):
                    'Yahtzee': 0, 'Chance': 0}
         expected = 'Player: *** BCIT ***, Win!'
         check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        self.assertEqual(expected, mock_output.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_check_win_random_numbers(self, mock_output):
@@ -59,7 +59,7 @@ class TestCheckWin(TestCase):
                    'Yahtzee': 0, 'Chance': 0}
         expected = 'Player: *** Joon ***, Win!'
         check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        self.assertEqual(expected, mock_output.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_check_win_all_name_number(self, mock_output):
@@ -71,9 +71,9 @@ class TestCheckWin(TestCase):
                    '5': 0, '6': 0, 'Three of a Kind': 35, 'Four of a Kind': 0,
                    'Full House': 0, 'Small Straight': 0, 'Large Straight': 0,
                    'Yahtzee': 0, 'Chance': 0}
-        expected = 'Player: *** 2 ***, Win!'
+        expected = '1: 0   2: 35\n2 Win!\n'
         check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        self.assertEqual(expected, mock_output.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_check_win_name_character(self, mock_output):
@@ -85,9 +85,9 @@ class TestCheckWin(TestCase):
                    '5': 0, '6': 0, 'Three of a Kind': 0, 'Four of a Kind': 0,
                    'Full House': 0, 'Small Straight': 0, 'Large Straight': 0,
                    'Yahtzee': 0, 'Chance': 0}
-        expected = 'Player: *** @ ***, Win'
+        expected = '@: 50   #: 0\n@ Win!\n'
         check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        self.assertEqual(expected, mock_output.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_check_win_name_space(self, mock_output):
@@ -101,7 +101,7 @@ class TestCheckWin(TestCase):
                    'Yahtzee': 0, 'Chance': 0}
         expected = 'Player: ***   ***, Win!'
         check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        self.assertEqual(expected, mock_output.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_check_win_add_bonus(self, mock_output):
@@ -113,6 +113,6 @@ class TestCheckWin(TestCase):
                    '5': 0, '6': 0, 'Three of a Kind': 0, 'Four of a Kind': 0,
                    'Full House': 0, 'Small Straight': 0, 'Large Straight': 0,
                    'Yahtzee': 0, 'Chance': 0}
-        expected = 'Player: *** Bonus ***, Win!'
-        check_win(player1, player2)
-        self.assertEqual(expected, mock_output.getValue())
+        expected = 'Bonus: 161   Joon: 0\nBonus Win!\n'
+        actual = check_win(player1, player2)
+        self.assertEqual(expected, mock_output.getvalue())

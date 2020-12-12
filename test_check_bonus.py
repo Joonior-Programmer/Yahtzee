@@ -44,8 +44,8 @@ class TestCheckBonus(TestCase):
                  '5': 15, '6': 18, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
-        expected = {'Name': 'Joon', '1': 1, '2': 2, '3': 3, '4': 4,
-                 '5': 5, '6': 6, 'Three of a Kind': None, 'Four of a Kind': None,
+        expected = {'Name': 'Joon', '1': 3, '2': 6, '3': 9, '4': 12,
+                 '5': 15, '6': 18, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None, 'Bonus': 35}
         actual = check_bonus(score)
@@ -68,8 +68,8 @@ class TestCheckBonus(TestCase):
                  '5': 25, '6': 30, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None}
-        expected = {'Name': 'Joon', '1': 1, '2': 2, '3': 3, '4': 4,
-                 '5': 5, '6': 6, 'Three of a Kind': None, 'Four of a Kind': None,
+        expected = {'Name': 'Joon', '1': 5, '2': 10, '3': 15, '4': 20,
+                 '5': 25, '6': 30, 'Three of a Kind': None, 'Four of a Kind': None,
                  'Full House': None, 'Small Straight': None, 'Large Straight': None,
                  'Yahtzee': None, 'Chance': None, 'Bonus': 35}
         actual = check_bonus(score)
